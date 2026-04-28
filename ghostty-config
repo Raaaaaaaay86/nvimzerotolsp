@@ -1,0 +1,4 @@
+background-opacity = 0.9
+
+macos-option-as-alt = true
+keybind = shift+enter=text:\n

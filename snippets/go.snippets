@@ -1,0 +1,29 @@
+snippet ehx 
+	if err != nil {
+		return xerrors.Errorf(": %w", err)
+	}
+
+snippet ehhx 
+	if err != nil {
+		return ${1: value}, xerrors.Errorf(": %w", err)
+	}
+
+snippet ehhhx 
+	if err != nil {
+		return ${1: value}, ${2: value}, xerrors.Errorf(": %w", err)
+	}
+
+snippet eh 
+	if err != nil {
+		return err
+	}
+
+snippet ehh 
+	if err != nil {
+		return ${1: value}, err
+	}
+
+snippet ehhh 
+	if err != nil {
+		return ${1: value}, ${2: value}, err
+	}

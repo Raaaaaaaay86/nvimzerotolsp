@@ -1,0 +1,18 @@
+snippet launch_go
+	{
+	  "version": "0.2.0",
+	  "configurations": [
+		{
+		  "name": "Launch Application",
+		  "type": "go",
+		  "request": "launch",
+		  "mode": "debug",
+		  "program": "\${workspaceFolder\}/path/to/main.go",
+		  "env": {},
+		  "args": [],
+		  "apiVersion": 2,
+		  "cwd": "\${workspaceFolder\}",
+		  "outputMode": "remote"
+		}
+	  ]
+	}

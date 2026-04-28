@@ -9,6 +9,9 @@ return {
 			require("mason").setup()
 			require("mason-lspconfig").setup({
 				ensure_installed = { "gopls", "rust_analyzer" },
+				automatic_enable = {
+					exclude = { "jdtls" },
+				},
 			})
 
 			local function get_go_module_name()

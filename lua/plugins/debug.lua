@@ -45,6 +45,49 @@ return {
 				},
 			})
 
+			local js_debug = vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js"
+			for _, adapter in ipairs({ "pwa-chrome", "chrome" }) do
+				dap.adapters[adapter] = {
+					type = "server",
+					host = "localhost",
+					port = "${port}",
+					executable = {
+						command = "node",
+						args = { js_debug, "${port}" },
+					},
+				}
+			end
+
+			local angular_source_map = {
+				["webpack:/*"] = "${webRoot}/*",
+				["/./*"] = "${webRoot}/*",
+				["/src/*"] = "${webRoot}/*",
+				["/*"] = "*",
+				["/./~/*"] = "${webRoot}/node_modules/*",
+			}
+
+			local angular_configs = {
+				{
+					type = "pwa-chrome",
+					request = "launch",
+					name = "Launch Chrome (Angular)",
+					url = "http://localhost:4200",
+					webRoot = "${workspaceFolder}",
+					sourceMapPathOverrides = angular_source_map,
+				},
+				{
+					type = "pwa-chrome",
+					request = "attach",
+					name = "Attach to Chrome (Angular)",
+					port = 9222,
+					webRoot = "${workspaceFolder}",
+					sourceMapPathOverrides = angular_source_map,
+				},
+			}
+
+			dap.configurations.typescript = angular_configs
+			dap.configurations.javascript = angular_configs
+
 			vim.keymap.set("n", "<F5>", dap.continue, {})
 			vim.keymap.set("n", "<F17>", dap.terminate, {})
 			vim.keymap.set("n", "<leader>dw", function() dapui.toggle({ layout = 1 }) end, { desc = "show breakpoints" })

@@ -34,6 +34,10 @@ vim.keymap.set("n", "<leader>l", ":tabnext<CR>", { noremap = true, silent = true
 vim.keymap.set("n", "<A-L>", ":tabmove +1<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<A-H>", ":tabmove -1<CR>", { noremap = true, silent = true })
 
+-- # Diagnostic
+vim.keymap.set("n", "<leader>7", ":lua vim.diagnostic.goto_prev()<CR>", { desc = "go to previous diagnostic" })
+vim.keymap.set("n", "<leader>8", ":lua vim.diagnostic.goto_next()<CR>", { desc = "go to next diagnostic" })
+
 -- ## Transparency
 vim.t.is_transparent = 0
 local function toggle_transparent()

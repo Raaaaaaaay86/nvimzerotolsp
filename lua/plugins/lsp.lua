@@ -87,55 +87,30 @@ return {
 		end,
 	},
 	{
-		"hrsh7th/nvim-cmp",
+		"saghen/blink.cmp",
 		dependencies = {
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-path",
-			"hrsh7th/cmp-cmdline",
-			"onsails/lspkind.nvim",
-			"hrsh7th/cmp-vsnip",
-			"hrsh7th/vim-vsnip",
+			"saghen/blink.lib",
+			"rafamadriz/friendly-snippets",
 		},
-		config = function()
-			local cmp = require("cmp")
-			local lspkind = require("lspkind")
-
-			cmp.setup({
-				snippet = {
-					expand = function(args)
-						vim.fn["vsnip#anonymous"](args.body)
-					end,
-				},
-				mapping = cmp.mapping.preset.insert({
-					["<C-k>"] = cmp.mapping.select_prev_item(),
-					["<C-j>"] = cmp.mapping.select_next_item(),
-					["<C-b>"] = cmp.mapping.scroll_docs(-4),
-					["<C-f>"] = cmp.mapping.scroll_docs(4),
-					["<C-e>"] = cmp.mapping.abort(),
-					["<CR>"] = cmp.mapping.confirm({ select = true }),
-				}),
-				sources = cmp.config.sources({
-					{ name = "nvim_lsp" },
-				}, {
-					{ name = "buffer" },
-					{ name = "path" },
-				}),
-				formatting = {
-					format = lspkind.cmp_format({
-						with_text = true,
-						maxwidth = 50,
-					}),
-				},
-			})
-
-			cmp.setup.cmdline("/", {
-				sources = { { name = "buffer" } },
-			})
-
-			cmp.setup.cmdline(":", {
-				sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
-			})
+		build = function()
+			require("blink.cmp").build():wait(60000)
 		end,
+		opts = {
+			keymap = {
+				preset = "none",
+				["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+				["<C-e>"] = { "hide" },
+				["<CR>"] = { "accept", "fallback" },
+
+				["<C-k>"] = { "select_prev", "fallback" },
+				["<C-j>"] = { "select_next", "fallback" },
+
+				["<C-b>"] = { "scroll_documentation_up", "fallback" },
+				["<C-f>"] = { "scroll_documentation_down", "fallback" },
+			},
+			completion = { documentation = { auto_show = false } },
+			sources = { default = { "lsp", "path", "snippets", "buffer" } },
+			fuzzy = { implementation = "rust" },
+		},
 	},
 }

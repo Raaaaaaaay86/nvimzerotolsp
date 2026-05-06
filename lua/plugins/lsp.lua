@@ -8,7 +8,7 @@ return {
 		config = function()
 			require("mason").setup()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "gopls", "rust_analyzer" },
+				ensure_installed = { "gopls", "rust_analyzer", "ts_ls", "vue_ls" },
 				automatic_enable = {
 					exclude = { "jdtls" },
 				},
@@ -30,8 +30,25 @@ return {
 			local lspconfig = vim.lsp
 			-- General LSPs
 			lspconfig.config("stylua",{})
-			lspconfig.config("ts_ls",{})
-			lspconfig.config("angularls",{})
+			local vue_plugin_path = vim.fn.stdpath("data") .. "/mason/packages/vue-language-server/node_modules/@vue/language-server"
+			lspconfig.config("ts_ls", {
+				init_options = {
+					plugins = {
+						{
+							name = "@vue/typescript-plugin",
+							location = vue_plugin_path,
+							languages = { "vue" },
+						},
+					},
+				},
+				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+			})
+			lspconfig.config("angularls", {})
+			lspconfig.config("vue_ls", {
+				init_options = {
+					vue = { hybridMode = true },
+				},
+			})
 			lspconfig.config("html",{})
 			lspconfig.config("gopls",{
 				settings = {

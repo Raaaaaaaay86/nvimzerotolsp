@@ -97,16 +97,7 @@ return {
 		end,
 		opts = {
 			keymap = {
-				preset = "none",
-				["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-				["<C-e>"] = { "hide" },
-				["<CR>"] = { "accept", "fallback" },
-
-				["<C-k>"] = { "select_prev", "fallback" },
-				["<C-j>"] = { "select_next", "fallback" },
-
-				["<C-b>"] = { "scroll_documentation_up", "fallback" },
-				["<C-f>"] = { "scroll_documentation_down", "fallback" },
+				preset = "enter",
 			},
 			completion = { documentation = { auto_show = false } },
 			sources = { default = { "lsp", "path", "snippets", "buffer" } },

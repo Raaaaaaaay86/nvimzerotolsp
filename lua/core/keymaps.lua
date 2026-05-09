@@ -42,7 +42,7 @@ vim.keymap.set("n", "<leader>8", ":lua vim.diagnostic.goto_next()<CR>", { desc =
 vim.t.is_transparent = 0
 local function toggle_transparent()
 	if vim.t.is_transparent == 0 then
-		vim.api.nvim_set_hl(0, "Normal", { guibg = "NONE", ctermbg = "NONE" })
+		vim.api.nvim_set_hl(0, "Normal", { bg = "NONE", ctermbg = "NONE" })
 		vim.t.is_transparent = 1
 	else
 		vim.cmd("colorscheme gruvbox")
